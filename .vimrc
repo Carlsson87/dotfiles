@@ -149,6 +149,10 @@ autocmd InsertLeave * :set relativenumber
 " Clear all trailing whitespace and remove empty lines on save.
 autocmd BufWritePre *.js %s/\s\+$//e | %s/\n\{3,}/\r\r/e
 
+" Enable project-specific vimrc
+set exrc
+set secure
+
 " === Airline
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
