@@ -23,6 +23,7 @@ Plug 'mxw/vim-jsx'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'mhinz/vim-startify'
+Plug 'gosukiwi/vim-atom-dark'
 call plug#end()
 
 " ========== Keymaps ==========
