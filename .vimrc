@@ -81,33 +81,52 @@ function! s:filter_header(lines) abort
 endfunction
 let g:startify_custom_header = s:filter_header([
     \'',
+    \'MMMMMMMM               MMMMMMMM               AAA               KKKKKKKKK    KKKKKKKEEEEEEEEEEEEEEEEEEEEEE',
+    \'M:::::::M             M:::::::M              A:::A              K:::::::K    K:::::KE::::::::::::::::::::E',
+    \'M::::::::M           M::::::::M             A:::::A             K:::::::K    K:::::KE::::::::::::::::::::E',
+    \'M:::::::::M         M:::::::::M            A:::::::A            K:::::::K   K::::::KEE::::::EEEEEEEEE::::E',
+    \'M::::::::::M       M::::::::::M           A:::::::::A           KK::::::K  K:::::KKK  E:::::E       EEEEEE',
+    \'M:::::::::::M     M:::::::::::M          A:::::A:::::A            K:::::K K:::::K     E:::::E',
+    \'M:::::::M::::M   M::::M:::::::M         A:::::A A:::::A           K::::::K:::::K      E::::::EEEEEEEEEE',
+    \'M::::::M M::::M M::::M M::::::M        A:::::A   A:::::A          K:::::::::::K       E:::::::::::::::E',
+    \'M::::::M  M::::M::::M  M::::::M       A:::::A     A:::::A         K:::::::::::K       E:::::::::::::::E',
+    \'M::::::M   M:::::::M   M::::::M      A:::::AAAAAAAAA:::::A        K::::::K:::::K      E::::::EEEEEEEEEE',
+    \'M::::::M    M:::::M    M::::::M     A:::::::::::::::::::::A       K:::::K K:::::K     E:::::E',
+    \'M::::::M     MMMMM     M::::::M    A:::::AAAAAAAAAAAAA:::::A    KK::::::K  K:::::KKK  E:::::E       EEEEEE',
+    \'M::::::M               M::::::M   A:::::A             A:::::A   K:::::::K   K::::::KEE::::::EEEEEEEE:::::E',
+    \'M::::::M               M::::::M  A:::::A               A:::::A  K:::::::K    K:::::KE::::::::::::::::::::E',
+    \'M::::::M               M::::::M A:::::A                 A:::::A K:::::::K    K:::::KE::::::::::::::::::::E',
+    \'MMMMMMMM               MMMMMMMMAAAAAAA                   AAAAAAAKKKKKKKKK    KKKKKKKEEEEEEEEEEEEEEEEEEEEEE',
     \'',
     \'',
-    \'  _    _   ______  __     __  __  __    ____',
-    \' | |  | | |  ____| \ \   / / |  \/  |  / __ \',
-    \' | |__| | | |__     \ \_/ /  | \  / | | |  | |',
-    \' |  __  | |  __|     \   /   | |\/| | | |  | |',
-    \' | |  | | | |____     | |    | |  | | | |__| |',
-    \' |_|  |_| |______|    |_|    |_|  |_|  \____/',
+    \'   SSSSSSSSSSSSSSS TTTTTTTTTTTTTTTTTTTTTTTUUUUUUUU     UUUUUUUUFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF',
+    \' SS:::::::::::::::ST:::::::::::::::::::::TU::::::U     U::::::UF::::::::::::::::::::FF::::::::::::::::::::F',
+    \'S:::::SSSSSS::::::ST:::::::::::::::::::::TU::::::U     U::::::UF::::::::::::::::::::FF::::::::::::::::::::F',
+    \'S:::::S     SSSSSSST:::::TT:::::::TT:::::TUU:::::U     U:::::UUFF::::::FFFFFFFFF::::FFF::::::FFFFFFFFF::::F',
+    \'S:::::S            TTTTTT  T:::::T  TTTTTT U:::::U     U:::::U   F:::::F       FFFFFF  F:::::F       FFFFFF',
+    \'S:::::S                    T:::::T         U:::::D     D:::::U   F:::::F               F:::::F',
+    \' S::::SSSS                 T:::::T         U:::::D     D:::::U   F::::::FFFFFFFFFF     F::::::FFFFFFFFFF',
+    \'  SS::::::SSSSS            T:::::T         U:::::D     D:::::U   F:::::::::::::::F     F:::::::::::::::F',
+    \'    SSS::::::::SS          T:::::T         U:::::D     D:::::U   F:::::::::::::::F     F:::::::::::::::F',
+    \'       SSSSSS::::S         T:::::T         U:::::D     D:::::U   F::::::FFFFFFFFFF     F::::::FFFFFFFFFF',
+    \'            S:::::S        T:::::T         U:::::D     D:::::U   F:::::F               F:::::F',
+    \'            S:::::S        T:::::T         U::::::U   U::::::U   F:::::F               F:::::F',
+    \'SSSSSSS     S:::::S      TT:::::::TT       U:::::::UUU:::::::U FF:::::::FF           FF:::::::FF',
+    \'S::::::SSSSSS:::::S      T:::::::::T        UU:::::::::::::UU  F::::::::FF           F::::::::FF',
+    \'S:::::::::::::::SS       T:::::::::T          UU:::::::::UU    F::::::::FF           F::::::::FF',
+    \' SSSSSSSSSSSSSSS         TTTTTTTTTTT            UUUUUUUUU      FFFFFFFFFFF           FFFFFFFFFFF',
     \'',
-    \'',
-    \'',
-\])
-
-let g:startify_relative_path = 1
+    \])
 let g:startify_enable_special = 0
-let g:startify_padding_left = 10
 let g:startify_list_order = [
-    \['          Most recently used files:'],
-    \'dir',
-    \['          Quick Commands:'],
+    \['Projects:'],
     \'commands'
     \]
 let g:startify_commands = [
-    \{'s': ['Git Status', ':vnew | setlocal buftype=nofile | read !git status']},
-    \{'p': ['Git Pull', ':vnew | setlocal buftype=nofile | read !git pull origin']}
+    \['Heymo Frontend', ':cd ~/code/heymo-front-end | so .vimrc | Startify'],
+    \['Heymo API', ':cd ~/code/heymo-api | so .vimrc | Startify'],
+    \['Mygains API', ':cd ~/code/mygains-api | e package.json'],
     \]
-
 
 " === NERDTree
 
