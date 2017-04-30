@@ -20,11 +20,12 @@ Plug 'pangloss/vim-javascript'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
 Plug 'mxw/vim-jsx'
-Plug 'sirver/ultisnips'
+Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+Plug 'mhinz/vim-startify'
 call plug#end()
 
-" ========== keymaps ==========
+" ========== Keymaps ==========
 
 " ===== Leader commands
 let mapleader = ","
@@ -33,13 +34,12 @@ map <Leader>q :e ~/notes.md<cr>
 nmap <Leader>t :!clear && yarn run jest %<cr>
 nmap <Leader>l :!clear && yarn run eslint %<cr>
 nmap <Leader>x :!node %<cr>
-nmap <Leader>s :w<cr>
-" clear all trailing whitespace
-nmap <Leader>w :%s/\s\+$//e <bar> %s/\n\{3,}/\r\r/e<cr>
+nmap <Leader>w :w<cr>
+nmap <Leader>q :q<cr>
 nmap <Leader>ev :e ~/.vimrc<cr>
-nmap <Leader>1 :NERDTreeToggle<cr>
+nmap <Leader>1 :Vexplore<cr>
 
-" === splits ===
+" === Splits ===
 
 " create splits
 nmap <c-v> :vsp<cr>
@@ -62,11 +62,50 @@ nmap ,<space> :nohlsearch<cr>
 
 " === misc ===
 
+command! W w
+command! Sudow :w !sudo tee %<cr>
 nmap + $
 imap jj <esc>
 nmap K i<cr><esc>
 
-" =========== configs ==========
+" =========== Configs ==========
+
+" === Startify
+function! s:filter_header(lines) abort
+    let longest_line   = max(map(copy(a:lines), 'strwidth(v:val)'))
+    let centered_lines = map(copy(a:lines),
+                \ 'repeat(" ", (&columns / 2) - (longest_line / 2)) . v:val')
+    return centered_lines
+endfunction
+let g:startify_custom_header = s:filter_header([
+    \'',
+    \'',
+    \'',
+    \'  _    _   ______  __     __  __  __    ____',
+    \' | |  | | |  ____| \ \   / / |  \/  |  / __ \',
+    \' | |__| | | |__     \ \_/ /  | \  / | | |  | |',
+    \' |  __  | |  __|     \   /   | |\/| | | |  | |',
+    \' | |  | | | |____     | |    | |  | | | |__| |',
+    \' |_|  |_| |______|    |_|    |_|  |_|  \____/',
+    \'',
+    \'',
+    \'',
+\])
+
+let g:startify_relative_path = 1
+let g:startify_enable_special = 0
+let g:startify_padding_left = 10
+let g:startify_list_order = [
+    \['          Most recently used files:'],
+    \'dir',
+    \['          Quick Commands:'],
+    \'commands'
+    \]
+let g:startify_commands = [
+    \{'s': ['Git Status', ':vnew | setlocal buftype=nofile | read !git status']},
+    \{'p': ['Git Pull', ':vnew | setlocal buftype=nofile | read !git pull origin']}
+    \]
+
 
 " === NERDTree
 
@@ -79,8 +118,9 @@ let g:netrw_liststyle = 3
 
 " === Vim
 
-colorscheme ir_black
+colorscheme atom-dark-256
 syntax on               " show syntax highlighting
+set gdefault " assume the /g flag on :s substitutions to replace all matches in a line
 set number              " show line numbers
 set showmatch           " show mathcing brace
 set tabstop=8           " tab things, see http://vim.wikia.com/wiki/indenting_source_code
@@ -94,11 +134,18 @@ set splitbelow          " create horizontal splits below
 set hlsearch            " highlight results while searching
 set incsearch           " perform the search incrementally as i'm typing
 set ttimeoutlen=50      " less delay when leaving insert mode
-set scrolloff=5
+set binary		" Do not add a newline to the end of files
+set noeol
+set scrolloff=8
 set encoding=utf8
 set backspace=indent,eol,start
 let g:javascript_plugin_flow = 1
 let g:jsx_ext_required = 0
+" Show relative line numbers when in Normal mode
+autocmd InsertEnter * :set number
+autocmd InsertLeave * :set relativenumber
+" Clear all trailing whitespace and remove empty lines on save.
+autocmd BufWritePre *.js %s/\s\+$//e | %s/\n\{3,}/\r\r/e
 
 " === Airline
 if !exists('g:airline_symbols')
@@ -136,8 +183,8 @@ let g:fzf_colors =
   \ 'header':  ['fg', 'comment'] }
 let $fzf_default_command = 'ag --hidden --ignore .git -g ""'
 
-nmap <c-p> :fzf<cr>
-nmap <c-e> :history<cr>
+nmap <c-p> :FZF<cr>
+nmap <c-e> :History<cr>
 
 vmap v <plug>(expand_region_expand)
 vmap <c-v> <plug>(expand_region_shrink)
