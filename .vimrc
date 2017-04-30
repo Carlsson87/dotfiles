@@ -39,7 +39,7 @@ nmap <Leader>x :!node %<cr>
 nmap <Leader>w :w<cr>
 nmap <Leader>q :q<cr>
 nmap <Leader>ev :e ~/.vimrc<cr>
-nmap <Leader>1 :Vexplore<cr>
+nmap <Leader>1 :NERDTreeToggle<cr>
 
 " === Splits ===
 
@@ -132,10 +132,7 @@ let g:startify_commands = [
 
 let g:NERDTreeDirArrowExpandable = '+'
 let g:NERDTreeDirArrowCollapsible = '-'
-let g:NERDTreeHijackNetrw = 0
-
-" === Netrw
-let g:netrw_liststyle = 3
+let g:NERDTreeHijackNetrw = 1
 
 " === Vim
 
