@@ -164,6 +164,7 @@ autocmd InsertEnter * :set number
 autocmd InsertLeave * :set relativenumber
 " Clear all trailing whitespace and remove empty lines on save.
 autocmd BufWritePre *.js %s/\s\+$//e | %s/\n\{3,}/\r\r/e
+autocmd BufNewFile,BufRead *.json set ft=javascript
 
 " Enable project-specific vimrc
 set exrc
