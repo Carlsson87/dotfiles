@@ -126,6 +126,9 @@ let g:startify_commands = [
     \['Heymo Frontend', ':cd ~/code/heymo-front-end | so .vimrc | Startify'],
     \['Heymo API', ':cd ~/code/heymo-api | so .vimrc | Startify'],
     \['Mygains API', ':cd ~/code/mygains-api | e package.json'],
+    \['Todo', ':cd ~ | e __todo.md'],
+    \['Global .vimrc', ':cd ~ | e .vimrc'],
+    \['.zshrc', ':cd ~ | e .zshrc'],
     \]
 
 " === NERDTree
