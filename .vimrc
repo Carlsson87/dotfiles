@@ -30,9 +30,6 @@ set guifont=Sauce\ Code\ Pro\ Medium\ Nerd\ Font\ Complete
 " Show line numbers
 set number
 
-" Show a colored column
-set colorcolumn=80
-
 " Use syntax highlighting
 syntax on
 
