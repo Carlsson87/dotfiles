@@ -1,12 +1,8 @@
+" ==============================
+" Daniel Carlsson
+" ==============================
 
-" ========== commands and includes and such ==========
-
-" === automatically source the .vimrc file upon save
-augroup autosourcing
-    autocmd!
-    autocmd BufWritePost .vimrc source %
-augroup end
-
+" Plugins, install with :PlugInstall
 call plug#begin('~/.vim/plugged')
 Plug 'scrooloose/nerdtree'
 Plug 'vim-airline/vim-airline'
@@ -27,56 +23,166 @@ Plug 'mhinz/vim-startify'
 Plug 'gosukiwi/vim-atom-dark'
 call plug#end()
 
+" Theme
+colorscheme atom-dark-256
+set guifont=Sauce\ Code\ Pro\ Medium\ Nerd\ Font\ Complete
+
+" Show line numbers
+set number
+
+" Show a colored column
+set colorcolumn=80
+
+" Use syntax highlighting
+syntax on
+
+" tab things, see http://vim.wikia.com/wiki/indenting_source_code
+set tabstop=8           
+set softtabstop=0
+set expandtab
+set shiftwidth=4
+set smarttab
+
+" Highlight matching brace 
+set showmatch           
+
+" Don't create swapfiles.
+set noswapfile          
+
+" Default split directions
+set splitright          
+set splitbelow          
+
+" Redraw lazily
+set lazyredraw
+
+" Assume the /g flag on :s substitutions to replace all matches in a line
+set gdefault 
+
+" Searching
+set hlsearch            
+set incsearch           
+set ignorecase
+set smartcase
+
+" Do not add a newline to the end of files
+set binary		
+set noeol
+
+" Delay when leaving insert mode
+set ttimeoutlen=50      
+
+" Start scrolling the screen before the cursor reaches the end.
+set scrolloff=8
+
+" Allow hiding modified buffers
+set hidden 		
+
+" Use UTF8 encoding
+set encoding=utf8
+
+" Allow backspacing over indentation, eol, and start of insert.
+set backspace=2
+
+" Automatically read modified files
+set autoread
+
+" Hide the status line
+set noshowmode
+
+" But always show the status line..
+set laststatus=2
+
+" Automatically source the .vimrc file on write
+augroup autosourcing
+    autocmd!
+    autocmd BufWritePost .vimrc source %
+augroup end
+
+" Show relative line numbers when in Normal mode, absolute numbers in insert.
+autocmd InsertEnter * :set number
+autocmd InsertLeave * :set relativenumber
+
+" Clear all trailing whitespace and remove empty lines on save.
+autocmd BufWritePre *.js %s/\s\+$//e | %s/\n\{3,}/\r\r/e
+
+" Consider JSON files to be javascript, for syntax highlighting.
+autocmd BufNewFile,BufRead *.json set ft=javascript
+
+
+
+
+
 " ========== Keymaps ==========
 
-" ===== Leader commands
+" === Leader commands
 let mapleader = ","
-map <Leader>q :e ~/notes.md<cr>
-
 nmap <Leader>t :!clear && yarn run jest %<cr>
 nmap <Leader>l :!clear && yarn run eslint %<cr>
 nmap <Leader>x :!node %<cr>
 nmap <Leader>w :w<cr>
 nmap <Leader>q :q<cr>
 nmap <Leader>ev :e ~/.vimrc<cr>
+nmap <Leader>b :buffers<cr>
+nmap <Leader>v :vsp<cr>
 nmap <Leader>1 :NERDTreeToggle<cr>
 
-" === Splits ===
+" Navigating splits
+nmap <c-l> <c-w>l
+nmap <c-h> <c-w>h
+nmap <c-k> <c-w>k
+nmap <c-j> <c-w>j
 
-" create splits
-nmap <c-v> :vsp<cr>
-nmap <c-c> :sp<cr>
+" Fuzzy finding
+nmap <c-p> :FZF<cr>
+nmap <c-e> :History<cr>
 
-" move between splits
-map <c-h> <c-w>h
-map <c-j> <c-w>j
-map <c-k> <c-w>k
-map <c-l> <c-w>l
+" vim-expand-region mappings
+vmap v <plug>(expand_region_expand)
+vmap <c-v> <plug>(expand_region_shrink)
 
-" resize splits
+" Insert linebreak at cursor
+nmap K i<cr><esc>
+
+" Move line up/down
+nmap <s-Left> ddkP
+nmap <s-Right> ddp
+
+" Next/Previous buffer
+nmap ä :bn<cr>
+nmap ö :bp<cr>
+
+" Resize splits
 nmap <s-up> :resize +10 <bar> vertical resize +10<cr>
 nmap <s-down> :vertical resize -10<cr>
 
-" === search ===
-
+" Start search
 nmap <space> /
+" Remove highlights after search
 nmap ,<space> :nohlsearch<cr>
 
-" === misc ===
-
+" Remap :W to :w
 command! W w
+
+" Command to save a file that was opened in readonly mode
 command! Sudow :w !sudo tee %<cr>
+
+" Map + to $ (go to end of line)
 nmap + $
+
+" Map jj to 
 imap jj <esc>
-nmap K i<cr><esc>
+
+
+
+
 
 " =========== Configs ==========
 
 " === Startify
 function! s:filter_header(lines) abort
     let longest_line   = max(map(copy(a:lines), 'strwidth(v:val)'))
-    let centered_lines = map(copy(a:lines),
-                \ 'repeat(" ", (&columns / 2) - (longest_line / 2)) . v:val')
+    let centered_lines = map(copy(a:lines), 'repeat(" ", (&columns / 2) - (longest_line / 2)) . v:val')
     return centered_lines
 endfunction
 let g:startify_custom_header = s:filter_header([
@@ -119,7 +225,6 @@ let g:startify_custom_header = s:filter_header([
     \])
 let g:startify_enable_special = 0
 let g:startify_list_order = [
-    \['Projects:'],
     \'commands'
     \]
 let g:startify_commands = [
@@ -127,9 +232,10 @@ let g:startify_commands = [
     \['Heymo API', ':cd ~/code/heymo-api | so .vimrc | Startify'],
     \['Mygains API', ':cd ~/code/mygains-api | e package.json'],
     \['Todo', ':cd ~ | e __notes.md'],
-    \['Global .vimrc', ':cd ~ | e .vimrc'],
+    \['.vimrc', ':cd ~ | e .vimrc'],
     \['.zshrc', ':cd ~ | e .zshrc'],
     \]
+
 
 " === NERDTree
 
@@ -137,62 +243,55 @@ let g:NERDTreeDirArrowExpandable = '+'
 let g:NERDTreeDirArrowCollapsible = '-'
 let g:NERDTreeHijackNetrw = 1
 
-" === Vim
-
-colorscheme atom-dark-256
-syntax on               " show syntax highlighting
-set gdefault " assume the /g flag on :s substitutions to replace all matches in a line
-set number              " show line numbers
-set showmatch           " show mathcing brace
-set tabstop=8           " tab things, see http://vim.wikia.com/wiki/indenting_source_code
-set softtabstop=0
-set expandtab
-set shiftwidth=4
-set smarttab
-set noswapfile          " dont create swapfiles for open buffers
-set splitright          " create vertical splits to the right
-set splitbelow          " create horizontal splits below
-set hlsearch            " highlight results while searching
-set incsearch           " perform the search incrementally as i'm typing
-set ttimeoutlen=50      " less delay when leaving insert mode
-set binary		" Do not add a newline to the end of files
-set noeol
-set scrolloff=8
-set encoding=utf8
-set backspace=indent,eol,start
+" === javascript.vim
 let g:javascript_plugin_flow = 1
 let g:jsx_ext_required = 0
-" Show relative line numbers when in Normal mode
-autocmd InsertEnter * :set number
-autocmd InsertLeave * :set relativenumber
-" Clear all trailing whitespace and remove empty lines on save.
-autocmd BufWritePre *.js %s/\s\+$//e | %s/\n\{3,}/\r\r/e
-autocmd BufNewFile,BufRead *.json set ft=javascript
-
-" Enable project-specific vimrc
-set exrc
-set secure
 
 " === Airline
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
-set guifont=Sauce\ Code\ Pro\ Medium\ Nerd\ Font\ Complete
 let g:airline_powerline_fonts = 1
 let g:airline_theme = 'badwolf'
 let g:bufferline_echo = 0
-" let g:airline_section_c = 'A'
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_alt_sep = ''
 let g:airline_symbols.branch = ''
 
-" Hide the defult status line
-set noshowmode
+" Remove default sections
+let g:airline_section_x = ''
+let g:airline_section_y = ''
+let g:airline_section_z = ''
+let g:airline_section_error = ''
+let g:airline_section_warning = ''
 
-" Show airline
-set laststatus=2
+" Tabline settings
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep = ''
+let g:airline#extensions#tabline#left_alt_sep = ''
+let g:airline#extensions#tabline#right_sep = ''
+let g:airline#extensions#tabline#right_alt_sep = ''
+let g:airline#extensions#wordcount#enabled = 0
+let g:airline#extensions#tabline#buffer_min_count = 2
+let g:airline_mode_map = {
+    \ '__' : '-',
+    \ 'n'  : 'N',
+    \ 'i'  : 'I',
+    \ 'R'  : 'R',
+    \ 'c'  : 'C',
+    \ 'v'  : 'V',
+    \ 'V'  : 'V-L',
+    \ '' : 'V-B',
+    \ 's'  : 'S',
+    \ 'S'  : 'S',
+    \ '' : 'S',
+    \ }
 
-" === fuzzy finder
+
+
+" === FZF
 
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'normal'],
@@ -208,9 +307,3 @@ let g:fzf_colors =
   \ 'spinner': ['fg', 'label'],
   \ 'header':  ['fg', 'comment'] }
 let $fzf_default_command = 'ag --hidden --ignore .git -g ""'
-
-nmap <c-p> :FZF<cr>
-nmap <c-e> :History<cr>
-
-vmap v <plug>(expand_region_expand)
-vmap <c-v> <plug>(expand_region_shrink)
