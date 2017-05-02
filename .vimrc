@@ -32,8 +32,8 @@ set number
 " Use syntax highlighting
 syntax on
 
-" tab things, see http://vim.wikia.com/wiki/indenting_source_code
-set tabstop=8           
+" Indentation
+set tabstop=8           " Tab things, see http://vim.wikia.com/wiki/Indenting_source_code
 set softtabstop=0
 set expandtab
 set shiftwidth=4
@@ -72,7 +72,7 @@ set ttimeoutlen=50
 set scrolloff=8
 
 " Allow hiding modified buffers
-set hidden 		
+set hidden		
 
 " Use UTF8 encoding
 set encoding=utf8
@@ -117,13 +117,11 @@ nmap <Leader>t :!clear && yarn run jest %<cr>
 nmap <Leader>l :!clear && yarn run eslint %<cr>
 nmap <Leader>x :!node %<cr>
 nmap <Leader>w :w<cr>
-nmap <Leader>q :q<cr>
+nmap <Leader>q :bd<cr>
 nmap <Leader>ev :e ~/.vimrc<cr>
 nmap <Leader>b :buffers<cr>
 nmap <Leader>v :vsp<cr>
 nmap <Leader>1 :NERDTreeToggle<cr>
-nmap <Leader>db :bd<cr>
-nmap <Leader>bd :bd<cr>
 
 " Navigating splits
 nmap <c-l> <c-w>l
