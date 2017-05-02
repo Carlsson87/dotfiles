@@ -10,7 +10,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-commentary'
 Plug 'terryma/vim-expand-region'
-Plug 'wesgibbs/vim-irblack'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'pangloss/vim-javascript'
@@ -232,6 +231,7 @@ let g:startify_commands = [
     \['.vimrc', ':cd ~ | e .vimrc'],
     \['.zshrc', ':cd ~ | e .zshrc'],
     \]
+let g:startify_change_to_dir = 0
 
 
 " === NERDTree
