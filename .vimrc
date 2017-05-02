@@ -122,6 +122,8 @@ nmap <Leader>ev :e ~/.vimrc<cr>
 nmap <Leader>b :buffers<cr>
 nmap <Leader>v :vsp<cr>
 nmap <Leader>1 :NERDTreeToggle<cr>
+nmap <Leader>db :bd<cr>
+nmap <Leader>bd :bd<cr>
 
 " Navigating splits
 nmap <c-l> <c-w>l
