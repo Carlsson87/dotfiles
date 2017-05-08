@@ -16,7 +16,7 @@ Plug 'pangloss/vim-javascript'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
 Plug 'mxw/vim-jsx'
-Plug 'SirVer/ultisnips'
+"Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'mhinz/vim-startify'
 Plug 'gosukiwi/vim-atom-dark'
@@ -33,7 +33,7 @@ set number
 syntax on
 
 " Indentation
-set tabstop=8           " Tab things, see http://vim.wikia.com/wiki/Indenting_source_code
+set tabstop=4           " Tab things, see http://vim.wikia.com/wiki/Indenting_source_code
 set softtabstop=0
 set expandtab
 set shiftwidth=4
@@ -62,7 +62,7 @@ set ignorecase
 set smartcase
 
 " Do not add a newline to the end of files
-set binary		
+set binary
 set noeol
 
 " Delay when leaving insert mode
@@ -72,7 +72,7 @@ set ttimeoutlen=50
 set scrolloff=8
 
 " Allow hiding modified buffers
-set hidden		
+set hidden
 
 " Use UTF8 encoding
 set encoding=utf8
@@ -120,8 +120,9 @@ nmap <Leader>w :w<cr>
 nmap <Leader>q :bd<cr>
 nmap <Leader>ev :e ~/.vimrc<cr>
 nmap <Leader>b :buffers<cr>
-nmap <Leader>v :vsp<cr>
 nmap <Leader>1 :NERDTreeToggle<cr>
+
+nmap <c-v> :vsp<cr>
 
 " Navigating splits
 nmap <c-l> <c-w>l
@@ -131,7 +132,6 @@ nmap <c-j> <c-w>j
 
 " Fuzzy finding
 nmap <c-p> :FZF<cr>
-nmap <c-e> :History<cr>
 
 " vim-expand-region mappings
 vmap v <plug>(expand_region_expand)
