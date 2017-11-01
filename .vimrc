@@ -19,6 +19,7 @@ Plug 'mxw/vim-jsx'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'gosukiwi/vim-atom-dark'
+Plug 'elmcast/elm-vim'
 call plug#end()
 
 " Theme
@@ -94,10 +95,6 @@ augroup autosourcing
     autocmd BufWritePost .vimrc source %
 augroup end
 
-" Show relative line numbers when in Normal mode, absolute numbers in insert.
-autocmd InsertEnter * :set number
-autocmd InsertLeave * :set relativenumber
-
 " Clear all trailing whitespace and remove empty lines on save.
 autocmd BufWritePre *.js %s/\s\+$//e | %s/\n\{3,}/\r\r/e
 
@@ -120,6 +117,16 @@ nmap <Leader>q :bd<cr>
 nmap <Leader>ev :e ~/.vimrc<cr>
 nmap <Leader>b :buffers<cr>
 nmap <Leader>1 :NERDTreeToggle<cr>
+nmap <Leader>a :call GetCurrentFlowType()<cr>
+
+function! GetCurrentFlowType()
+  let pos = fnameescape(expand('%')).' '.line('.').' '.col('.')
+  let cmd = 'flow type-at-pos '.pos
+
+  let output = 'FlowType: '.system(cmd)
+  let output = substitute(output, '\n$', '', '')
+  echo output
+endfunction
 
 nmap <c-v> :vsp<cr>
 
@@ -143,10 +150,6 @@ nmap K i<cr><esc>
 nmap <s-Left> ddkP
 nmap <s-Right> ddp
 
-" Next/Previous buffer
-nmap ä :bn<cr>
-nmap ö :bp<cr>
-
 " Resize splits
 nmap <s-up> :resize +10 <bar> vertical resize +10<cr>
 nmap <s-down> :vertical resize -10<cr>
@@ -162,8 +165,9 @@ command! W w
 " Command to save a file that was opened in readonly mode
 command! Sudow :w !sudo tee %<cr>
 
-" Map + to $ (go to end of line)
-nmap + $
+" Start of line / End of line
+nmap ö ^
+nmap ä $
 
 " Map jj to 
 imap jj <esc>
@@ -174,8 +178,10 @@ imap jj <esc>
 
 " =========== Configs ==========
 
-" === NERDTree
+" === Elm Format
+let g:elm_format_autosave = 1
 
+" === NERDTree
 let g:NERDTreeDirArrowExpandable = '+'
 let g:NERDTreeDirArrowCollapsible = '-'
 let g:NERDTreeHijackNetrw = 1
@@ -183,6 +189,12 @@ let g:NERDTreeHijackNetrw = 1
 " === javascript.vim
 let g:javascript_plugin_flow = 1
 let g:jsx_ext_required = 0
+
+" === UltiSnips
+let g:UltiSnipsJumpForwardTrigger = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+let g:UltiSnipsEditSplit = 'vertical'
+let g:UltiSnipsSnippetDirectories=['~/.vim/my-snips']
 
 " === Airline
 if !exists('g:airline_symbols')
